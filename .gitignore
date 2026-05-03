@@ -30,4 +30,4 @@ staticfiles/
 Thumbs.db
 
 # Django maxfiy sozlamalari
-local_settings.py
+local_settings.py   

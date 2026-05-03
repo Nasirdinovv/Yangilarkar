@@ -1,7 +1,10 @@
-from django.urls import path
+from django.urls import path, include
 from news.views import NewsLCView
+from rest_framework.routers import DefaultRouter
 
+router = DefaultRouter()
+router.register('news', NewsLCView, basename='news')
 
 urlpatterns = [
-    path('', NewsLCView.as_view(), name='news_create_and_list')
+    path('', include(router.urls))
 ]

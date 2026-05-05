@@ -14,6 +14,13 @@ class User_profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     status = models.CharField   (choices=Status.choices, default=Status.USER)
     
+    
+    def __str__(self):
+        return f"{self.user} - {self.status}"
+    
+
+
+
 
 
 
@@ -29,12 +36,36 @@ class News(models.Model):
     def __str__(self):
         return f"{self.title} - {self.author}"
 
+        
+        
+        
+        
+        
+
 class Author(models.Model):
     full_name = models.CharField(max_length=36)
     image = models.ImageField(upload_to="author_images", blank=True, null=True)
+    
+    def __str__(self):
+        return f"{self.full_name}"
+        
+        
+        
+        
+        
+
 
 class Category(models.Model):
     title = models.CharField()
+    
+    def __str__(self):
+        return f"{self.title}"
+    
+    
+    
+
+    
+    
 
 class Likes(models.Model):
     news = models.ForeignKey(News, on_delete=models.CASCADE, related_name="likes")
@@ -48,3 +79,6 @@ class Likes(models.Model):
                 name='unique_likes'
             ),
         ]
+        
+    def __str__(self):
+        return f"{self.news} - {self.user}"

@@ -1,9 +1,11 @@
 from news.models import News, User_profile, Likes
 from news.serializers import NewsListeSrializers
 from rest_framework import viewsets
+from rest_framework.views import APIView
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from drf_yasg.utils import swagger_auto_schema, no_body
 
 
@@ -11,7 +13,9 @@ from drf_yasg.utils import swagger_auto_schema, no_body
 class NewsLCView(viewsets.ModelViewSet):
     queryset = News.objects.all()
     serializer_class = NewsListeSrializers
-
+    permission_classes = [IsAuthenticated]
+    
+    
     @action(detail=False, methods=['get'])
     def get_lastest_10_news(self, request):
         news = self.get_queryset().order_by('-time')[:10]
@@ -46,4 +50,10 @@ class NewsLCView(viewsets.ModelViewSet):
             )
     
     
-            
+class LogoutView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+
+        request.user.auth_token.delete()
+        return Response({"msg": "Muvaffaqiyatli logout qilindi (token o'chirildi)"}, status=status.HTTP_200_OK)

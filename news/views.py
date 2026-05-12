@@ -50,10 +50,10 @@ class NewsLCView(viewsets.ModelViewSet):
             )
     
     
-class LogoutView(APIView):
-    permission_classes = [IsAuthenticated]
+# class LogoutView(APIView):
+#     permission_classes = [IsAuthenticated]
 
-    def post(self, request):
+#     def post(self, request):
 
-        request.user.auth_token.delete()
-        return Response({"msg": "Muvaffaqiyatli logout qilindi (token o'chirildi)"}, status=status.HTTP_200_OK)
+#         request.user.auth_token.delete()
+#         return Response({"msg": "Muvaffaqiyatli logout qilindi (token o'chirildi)"}, status=status.HTTP_200_OK)
